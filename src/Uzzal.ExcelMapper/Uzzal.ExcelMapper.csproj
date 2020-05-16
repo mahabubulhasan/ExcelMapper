@@ -8,6 +8,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>excel csv reader</PackageTags>
     <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <Authors>Mahabubul Hasan</Authors>
+    <Company />
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
