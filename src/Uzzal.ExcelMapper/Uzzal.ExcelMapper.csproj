@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Model attribute support for excel, csv reader</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/mahabubulhasan/ExcelMapper</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>excel csv reader</PackageTags>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
