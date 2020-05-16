@@ -10,7 +10,6 @@ namespace Uzzal.ExcelMapper.Test
         private readonly ITestOutputHelper output;
         private readonly string xlsFile;
         private readonly string xlsxFile;
-        private readonly ExcelService reader;
 
         public ExcelServiceTest(ITestOutputHelper output)
         {
@@ -21,12 +20,22 @@ namespace Uzzal.ExcelMapper.Test
             xlsxFile = Path.GetFullPath(@"resources\\Sample.xlsx");
 
             output.WriteLine(xlsFile);
-            reader = new ExcelService(xlsFile);
+        }
+
+        [Fact]
+        public void ExcelServiceWithStreamTest()
+        {
+            var stream = File.Open(xlsxFile, FileMode.Open, FileAccess.Read);
+            var reader = new ExcelService(stream);
+                            
+            Assert.True(reader.HasColumns(new string[] { "Region", "Area", "UserID" }));
+            Assert.False(reader.HasColumns(new string[] { "RegionNo", "AreaNo", "UserIDNo" }));
         }
 
         [Fact]
         public void HasColumnTest()
         {
+            var reader = new ExcelService(xlsFile);
             Assert.True(reader.HasColumns(new string[] { "Region", "Area", "UserID" }));
             Assert.False(reader.HasColumns(new string[] { "RegionNo", "AreaNo", "UserIDNo" }));
         }

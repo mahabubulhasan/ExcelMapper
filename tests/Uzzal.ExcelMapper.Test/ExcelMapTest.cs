@@ -11,7 +11,6 @@ namespace Uzzal.ExcelMapper.Test
         private readonly ITestOutputHelper output;
         private readonly string xlsFile;
         private readonly string xlsxFile;
-        private readonly ExcelService reader;
 
         public ExcelMapTest(ITestOutputHelper output)
         {
@@ -22,12 +21,12 @@ namespace Uzzal.ExcelMapper.Test
             xlsxFile = @"resources\\Sample.xlsx";
 
             output.WriteLine(xlsFile);
-            reader = new ExcelService(xlsFile);
         }
 
         [Fact]
         public void MapTest()
         {
+            var reader = new ExcelService(xlsFile);
             var service = new ExcelMap<SampleModel>(reader);
             var map = service.Map();
 

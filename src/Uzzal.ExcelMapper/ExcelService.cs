@@ -2,29 +2,42 @@
 using System.Data;
 using System.Linq;
 using System.IO;
+using System;
 
 namespace Uzzal.ExcelMapper
 {
     public class ExcelService
     {
-        private readonly string _filePath;
+        private DataSet Data { get; set; }
+
+        public ExcelService(Stream stream)
+        {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            ReadStrem(stream);
+        }
 
         public ExcelService(string filePath)
         {
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            _filePath = filePath;
+            ReadFile(filePath);
         }
 
-        private DataSet ReadFile()
+        private void ReadFile(string filePath)
         {
-            using (var stream = File.Open(_filePath, FileMode.Open, FileAccess.Read))
+            using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                ReadStrem(stream);
+        }
+
+        private void ReadStrem(Stream stream)
+        {
             using (var reader = ExcelReaderFactory.CreateReader(stream))
-            return reader.AsDataSet();
+            {
+                Data = reader.AsDataSet();
+            }
         }
 
         private DataTable ReadSheet(int sheetNo = 0)
         {
-            return ReadFile().Tables[sheetNo];            
+            return Data.Tables[sheetNo];            
         }
 
         private void TreadFirstRowAsColumnName(DataTable sheet)
@@ -59,6 +72,5 @@ namespace Uzzal.ExcelMapper
             }
             return true;
         }
-
     }
 }
